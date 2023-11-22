@@ -1,3 +1,5 @@
+// user type
+
 export type User = {
   userId: string;
   username: string;
@@ -5,8 +7,9 @@ export type User = {
     firstName: string;
     lastName: string;
   };
-  age: number;
   email: string;
+  password: string;
+  age: number;
   isActive: boolean;
   hobbies: string[];
   address: {
@@ -14,6 +17,8 @@ export type User = {
     city: string;
   };
 };
+
+// orders types
 
 export type Orders = {
   orderId: string;
