@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
 import { TUser } from "./users/user.interface";
-
+import bcrypt from "bcrypt";
 // Declare the Schema of the Mongo model
 const userSchema = new mongoose.Schema<TUser>({
+  userId: {
+    type: Number,
+    unique: true,
+  },
   username: {
     type: String,
     required: [true, "username is required"],
@@ -54,7 +58,10 @@ const userSchema = new mongoose.Schema<TUser>({
 });
 
 // middleware
-userSchema.pre("save", function (next) {});
+userSchema.pre("save", async function (next) {
+  this.password = await bcrypt.hash(this.password, 12);
+  next();
+});
 
 //Export the model
 export const userModel = mongoose.model("User", userSchema);
