@@ -51,6 +51,7 @@ const userSchema = new mongoose.Schema<TUser>({
       required: [true, "city is required"],
     },
   },
+
   isActive: {
     type: Boolean,
     default: true,
@@ -63,5 +64,5 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-//Export the model
+// Export the model
 export const userModel = mongoose.model("User", userSchema);
