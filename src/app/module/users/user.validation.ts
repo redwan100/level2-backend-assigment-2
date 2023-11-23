@@ -14,12 +14,13 @@ const fullNameSchema = z.object({
 const userZodSchema = z.object({
   username: z.string().min(2).max(30),
   fullName: fullNameSchema,
+  userId: z.number(),
   email: z.string().min(3),
   password: z.string().min(4).max(40),
   age: z.number(),
   hobbies: z.array(z.string()),
   address: addressSchema,
-  isActive: z.boolean(),
+  isActive: z.boolean().default(true),
 });
 
 export const zodValidationSchema = {

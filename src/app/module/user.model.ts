@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
-import { User } from "./users/user.interface";
+import { TUser } from "./users/user.interface";
+
 // Declare the Schema of the Mongo model
-const userSchema = new mongoose.Schema<User>({
+const userSchema = new mongoose.Schema<TUser>({
   username: {
     type: String,
     required: [true, "username is required"],
@@ -52,5 +53,8 @@ const userSchema = new mongoose.Schema<User>({
   },
 });
 
+// middleware
+userSchema.pre("save", function (next) {});
+
 //Export the model
-export const user = mongoose.model("User", userSchema);
+export const userModel = mongoose.model("User", userSchema);

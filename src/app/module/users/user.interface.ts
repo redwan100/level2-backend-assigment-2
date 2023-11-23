@@ -1,7 +1,7 @@
 // user type
 
-export type User = {
-  userId: string;
+export type TUser = {
+  userId: number;
   username: string;
   fullName: {
     firstName: string;
