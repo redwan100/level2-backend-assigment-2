@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { TUser } from "./users/user.interface";
 import bcrypt from "bcrypt";
+
 // Declare the Schema of the Mongo model
 const userSchema = new mongoose.Schema<TUser>({
   userId: {
@@ -25,7 +26,6 @@ const userSchema = new mongoose.Schema<TUser>({
   },
   email: {
     type: String,
-    unique: true,
     required: [true, "email is required"],
     trim: true,
   },
@@ -61,6 +61,21 @@ const userSchema = new mongoose.Schema<TUser>({
 // middleware
 userSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 12);
+  next();
+});
+userSchema.post("save", async function (doc, next) {
+  doc.password = "";
+  next();
+});
+
+userSchema.post("find", function (doc, next) {
+  doc?.map((user: TUser) => (user.password = ""));
+
+  next();
+});
+
+userSchema.post("findOne", function (doc, next) {
+  doc.password = "";
   next();
 });
 
