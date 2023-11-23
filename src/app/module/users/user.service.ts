@@ -17,8 +17,20 @@ const getUserFromDB = async (userId: number) => {
   return result;
 };
 
+const updateUserFromDB = async (
+  userId: number | string,
+  updatedDoc: object,
+) => {
+  const result = await userModel.updateOne(
+    { userId: userId },
+    { $set: { ...updatedDoc } },
+  );
+  return result;
+};
+
 export const userService = {
   createUserIntoDB,
   getAllUserFromDB,
   getUserFromDB,
+  updateUserFromDB,
 };
